@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Erro <%= codigo %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="login-body">
+  <div class="card erro-card">
+    <h1>Erro <%= codigo %></h1>
+    <p><%= mensagem %></p>
+
+    <% if (codigo === 403) { %>
+      <p>Entre com um usuário que tenha o perfil necessário.</p>
+    <% } %>
+
+    <a href="/tarefas">Voltar para tarefas</a>
+  </div>
+</body>
+</html>

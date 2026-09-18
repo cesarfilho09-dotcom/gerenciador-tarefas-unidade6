@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Minhas tarefas</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Minhas tarefas</h1>
+        <p>Olá, <strong><%= usuario.nome %></strong> | Perfil: <%= usuario.perfil %></p>
+      </div>
+      <form method="POST" action="/logout">
+        <button class="secundario" type="submit">Sair</button>
+      </form>
+    </header>
+
+    <% if (erro) { %>
+      <div class="erro"><%= erro %></div>
+    <% } %>
+
+    <div class="card">
+      <h2>Nova tarefa</h2>
+      <form method="POST" action="/tarefas">
+        <input name="titulo" placeholder="Título da tarefa">
+        <textarea name="descricao" placeholder="Descrição"></textarea>
+        <button type="submit">Cadastrar</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Tarefas cadastradas</h2>
+
+      <% if (tarefas.length === 0) { %>
+        <p>Nenhuma tarefa cadastrada.</p>
+      <% } else { %>
+
+        <% const pendentes = tarefas.filter(t => t.status === "pendente"); %>
+
+        <% if (pendentes.length === 0) { %>
+          <div class="sucesso">Todas as tarefas concluídas!</div>
+        <% } %>
+
+        <% tarefas.forEach(tarefa => { %>
+          <div class="tarefa">
+            <div>
+              <h3><%= tarefa.titulo %></h3>
+              <p><%= tarefa.descricao || "Sem descrição" %></p>
+              <span class="<%= tarefa.status === 'concluida' ? 'concluida' : 'pendente' %>">
+                <%= tarefa.status %>
+              </span>
+            </div>
+
+            <div class="acoes">
+              <% if (tarefa.status === "pendente") { %>
+                <form method="POST" action="/tarefas/<%= tarefa.id %>/concluir">
+                  <button type="submit">Concluir</button>
+                </form>
+              <% } %>
+
+              <% if (usuario.perfil === "admin") { %>
+                <form method="POST" action="/tarefas/<%= tarefa.id %>/excluir">
+                  <button class="perigo" type="submit">Excluir</button>
+                </form>
+              <% } %>
+            </div>
+          </div>
+        <% }) %>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,144 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+  color: #222;
+}
+
+.container {
+  width: 90%;
+  max-width: 900px;
+  margin: 30px auto;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #ccc;
+}
+
+.login-body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  width: 380px;
+}
+
+h1, h2 {
+  margin-top: 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+}
+
+textarea {
+  min-height: 80px;
+}
+
+button {
+  border: 0;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  background: #333;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+.secundario {
+  background: #666;
+}
+
+.perigo {
+  background: #b00020;
+}
+
+.sucesso {
+  padding: 12px;
+  background: #d8f5dc;
+  border: 1px solid #74b67c;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.erro {
+  padding: 12px;
+  background: #ffe0e0;
+  border: 1px solid #cc7777;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.teste {
+  margin-top: 20px;
+  padding: 10px;
+  background: #eee;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.tarefa {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 1px solid #ddd;
+  padding: 15px 0;
+}
+
+.tarefa h3 {
+  margin: 0 0 5px;
+}
+
+.tarefa p {
+  margin: 5px 0 10px;
+}
+
+.acoes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pendente, .concluida {
+  font-size: 13px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #eee;
+}
+
+.concluida {
+  background: #d8f5dc;
+}
+
+.erro-card {
+  text-align: center;
+}

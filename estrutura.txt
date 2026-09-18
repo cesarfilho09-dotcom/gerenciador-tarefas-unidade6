@@ -1,0 +1,23 @@
+gerenciador-tarefas-unidade3/
+├── app.js
+├── package.json
+├── .env.example
+├── .gitignore
+├── database.sql
+├── README.md
+├── middleware/
+│   └── auth.js
+├── models/
+│   ├── index.js
+│   ├── Usuario.js
+│   └── Tarefa.js
+├── routes/
+│   ├── auth.js
+│   └── tarefas.js
+├── views/
+│   ├── login.ejs
+│   ├── index.ejs
+│   └── erro.ejs
+└── public/
+    └── css/
+        └── style.css
