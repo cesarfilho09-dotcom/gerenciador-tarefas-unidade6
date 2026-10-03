@@ -94,7 +94,7 @@ async function iniciar() {
       console.log("Usuário: usuario@teste.com / 123456");
     });
   } catch (erro) {
-    console.error("Não foi possível iniciar:", erro.message);
+    console.error("Não foi possível iniciar:", erro);
     process.exit(1);
   }
 }

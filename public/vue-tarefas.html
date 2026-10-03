@@ -6,6 +6,7 @@
   <title>Gerenciador de Tarefas - Vue</title>
 
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://unpkg.com/vue-router@4/dist/vue-router.global.js"></script>
 
   <style>
     * { box-sizing: border-box; }
@@ -86,93 +87,53 @@
       background: #d4edda;
       color: #155724;
     }
+    .menu {
+  max-width: 900px;
+  margin: 0 auto 20px;
+  padding: 15px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.menu a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.menu a:hover {
+  text-decoration: underline;
+}
   </style>
 </head>
 
 <body>
+  <nav class="menu">
+  <a href="#/">Inicial</a>
+  <a href="#/detalhes">Detalhes</a>
+  <a href="#/login">Login</a>
+  <a href="#/admin">Admin</a>
+  <a href="#/objeto">Objeto</a>
+  <a href="#/usuarios">Usuários</a>
+  <a href="#/autor">Autor</a>
+</nav>
   <div id="app" class="container">
 
-    <div class="card">
-      <h1>Gerenciador de Tarefas</h1>
-      <p>Bem-vindo ao Gerenciador de Tarefas!</p>
+    <router-view></router-view>
 
-      <!-- Área de carregamento -->
-      <p v-if="carregando" class="carregando">
-        Carregando tarefas...
-      </p>
-
-      <!-- Tratamento simples de erro -->
-      <div v-if="erro" class="erro">
-        {{ erro }}
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Nova tarefa</h2>
-
-      <!-- Formulário com v-model -->
-      <form @submit.prevent="cadastrarTarefa">
-        <label for="titulo">Título:</label>
-        <input
-          id="titulo"
-          type="text"
-          v-model="titulo"
-          placeholder="Digite o título da tarefa"
-        >
-
-        <label for="descricao">Descrição:</label>
-        <textarea
-          id="descricao"
-          v-model="descricao"
-          placeholder="Digite a descrição da tarefa"
-        ></textarea>
-
-        <button type="submit">Cadastrar tarefa</button>
-      </form>
-    </div>
-
-    <div class="card">
-      <h2>Tarefas cadastradas</h2>
-
-      <!-- Mensagem condicional quando não houver tarefas -->
-      <p v-if="!carregando && tarefas.length === 0">
-        Nenhuma tarefa cadastrada.
-      </p>
-
-      <!-- Listagem usando v-for -->
-      <div
-        v-for="tarefa in tarefas"
-        :key="tarefa.id"
-        class="tarefa"
-        :class="{ concluida: tarefa.status === 'concluida' }"
-      >
-        <h3>{{ tarefa.titulo }}</h3>
-
-        <p>
-          {{ tarefa.descricao || 'Sem descrição' }}
-        </p>
-
-        <span
-          class="status"
-          :class="tarefa.status === 'concluida' ? 'concluida' : 'pendente'"
-        >
-          {{ tarefa.status === 'concluida' ? 'Concluída' : 'Pendente' }}
-        </span>
-
-        <!-- Método para alternar status -->
-        <br>
-        <button @click="alternarStatus(tarefa)">
-          {{ tarefa.status === 'concluida' ? 'Marcar como pendente' : 'Concluir tarefa' }}
-        </button>
-      </div>
-    </div>
 
   </div>
+
+<script src="/js/router.js"></script>
 
   <script>
     const { createApp } = Vue;
 
-    createApp({
+    const app = createApp({
       data() {
         return {
           tarefas: [],
@@ -276,7 +237,11 @@
           }
         }
       }
-    }).mount("#app");
+        });
+
+    app.use(router);
+
+    app.mount("#app");
   </script>
 </body>
 </html>
