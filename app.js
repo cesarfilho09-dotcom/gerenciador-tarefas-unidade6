@@ -38,6 +38,8 @@ app.get("/vue", estaAutenticado, (req, res) => {
 // Rotas
 app.use("/", require("./routes/auth"));
 app.use("/tarefas", require("./routes/tarefas"));
+app.use("/admin", require("./routes/admin"));
+app.use("/objetos", require("./routes/objetos"));
 
 // 404 - rota que não existe
 app.use((req, res) => {
