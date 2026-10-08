@@ -606,22 +606,36 @@ const routes = [
   name: "Objeto",
   component: {
     data() {
-      return {
-  objetos: [],
-  erro: "",
-  carregando: false,
-  titulo: "",
-  descricao: "",
-  status: "pendente",
-  usuarioId: "",
-  editandoId: null
-};
-    },
+  return {
+    objetos: [],
+    erro: "",
+    carregando: false,
+    titulo: "",
+    descricao: "",
+    status: "pendente",
+    usuarioId: "",
+    editandoId: null,
+    filtro: "todas"
+  };
+},
 
     mounted() {
       this.carregarObjetos();
     },
 
+computed: {
+  objetosFiltrados() {
+    if (this.filtro === "pendentes") {
+      return this.objetos.filter(objeto => objeto.status === "pendente");
+    }
+
+    if (this.filtro === "concluidas") {
+      return this.objetos.filter(objeto => objeto.status === "concluida");
+    }
+
+    return this.objetos;
+  }
+},
     methods: {
       async carregarObjetos() {
         const token = sessionStorage.getItem("token");
@@ -798,7 +812,13 @@ cancelarEdicao() {
 
         <div class="card">
           <h1>Cadastro de Objetos</h1>
+<label for="filtro">Filtrar tarefas:</label>
 
+<select id="filtro" v-model="filtro">
+  <option value="todas">Todas</option>
+  <option value="pendentes">Pendentes</option>
+  <option value="concluidas">Concluídas</option>
+</select>
           <button @click="$router.push('/admin')">
             Voltar
           </button>
@@ -880,42 +900,40 @@ cancelarEdicao() {
             {{ erro }}
           </div>
 
-          <div
-            v-for="objeto in objetos"
-            :key="objeto.id"
-            class="tarefa"
-          >
+          <TransitionGroup name="lista" tag="div">
 
-            <h3>{{ objeto.titulo }}</h3>
+  <div v-for="objeto in objetosFiltrados" :key="objeto.id" class="tarefa">
 
-            <p>
-              {{ objeto.descricao || "Sem descrição" }}
-            </p>
+    <h3>{{ objeto.titulo }}</h3>
 
-            <p>
-              Status: {{ objeto.status }}
-            </p>
+    <p>
+      {{ objeto.descricao || "Sem descrição" }}
+    </p>
 
-            <p>
-              Usuário: {{ objeto.usuarioId }}
-            </p>
+    <p>
+      Status: {{ objeto.status }}
+    </p>
 
-           <button @click="editarObjeto(objeto)">
-  Editar
-</button>
+    <p>
+      Usuário: {{ objeto.usuarioId }}
+    </p>
 
-<button @click="excluirObjeto(objeto.id)">
-  Excluir
-</button>
+    <button @click="editarObjeto(objeto)">
+      Editar
+    </button>
 
-          </div>
+    <button @click="excluirObjeto(objeto.id)">
+      Excluir
+    </button>
 
-          <p v-if="!carregando && objetos.length === 0">
-            Nenhum objeto cadastrado.
-          </p>
+  </div>
 
+</TransitionGroup>
+
+<p v-if="!carregando && objetosFiltrados.length === 0">
+  Nenhum objeto cadastrado.
+</p>
         </div>
-
       </div>
     `
   }
